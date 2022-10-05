@@ -8,7 +8,7 @@ const Pagination = () => {
   // const [activepage,setActivepage]=useState("")
   const { currentpage,searchkeyword } = useAppSelector((state) => state.articleSlice);
 
-  console.log("pagination currentpage", currentpage);
+  // console.log("pagination currentpage", currentpage);
 
   const dispatch = useAppDispatch();
   let btnnumber = 4;
@@ -16,7 +16,7 @@ const Pagination = () => {
   for (let i = 0; i < btnnumber; i++) {
     btnarray.push(i);
   }
-console.log("btnarray",btnarray);
+// console.log("btnarray",btnarray);
   const changeThePage = async(noofbutton: number) => {
     // alert(noofbutton)
     // console.log("noofbutton",noofbutton)
@@ -36,7 +36,7 @@ console.log("btnarray",btnarray);
   const decrementpage = async() => {
     if(currentpage>0)
     {
-        console.log("dec currentpage", currentpage);
+        // console.log("dec currentpage", currentpage);
         let deconepage = currentpage - 1;
         dispatch(addcurrentpage({ currentpage: deconepage }));
         changeThePage(deconepage);
@@ -53,14 +53,14 @@ console.log("btnarray",btnarray);
   const incrementpage = async() => {
     if(currentpage<btnnumber)
     {
-        console.log("inc currentpage", currentpage);
+        // console.log("inc currentpage", currentpage);
         let addonepage = currentpage + 1;
         dispatch(addcurrentpage({ currentpage: addonepage }));
         changeThePage(addonepage);
     }
     else if(currentpage === btnnumber-1)
     {
-      console.log("last currentpage", currentpage);
+      // console.log("last currentpage", currentpage);
       dispatch(addcurrentpage({ currentpage: currentpage }));
         changeThePage(currentpage);
     }

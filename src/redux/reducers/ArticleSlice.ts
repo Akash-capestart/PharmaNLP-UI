@@ -11,8 +11,13 @@ const ArticleSlice=createSlice({
             message:"",
             isloading:false,
             currentpage:0,
-            searchkeyword:null
+            searchkeyword:null,
+            selectedarticleslist:[],
+            selectallarticleinpage:[],
+            selectedallslice:false
         },
+
+        
         reducers:{
 
             addcurrentpage : (state,action : PayloadAction<any>) => {
@@ -27,6 +32,42 @@ const ArticleSlice=createSlice({
                     ...state,
                     searchkeyword : action["payload"]["searchkeyword"],
                     currentpage : 0
+                }
+            },
+
+
+            addselectedarticles:(state,action:PayloadAction<any>)=>{
+                return {
+                    ...state,
+                    selectedarticleslist:action['payload']["selectedarticleslist"]
+                    
+                }
+            },
+
+
+            addallarticlesinpage:(state,action:PayloadAction<any>)=>{
+                return {
+                    ...state,
+                    selectallarticleinpage:action['payload']["selectallarticleinpage"]
+                    
+                }   
+            },
+
+
+            adddatalist:(state,action:PayloadAction<any>)=>{
+                return {
+                    ...state,
+                    datalist:action["payload"]["datalist"]
+                    
+                }
+            },
+
+
+            addselectedalltoogle:(state,action:PayloadAction<any>)=>{
+                return {
+                    ...state,
+                    selectedallslice:action["payload"]["selectedallslice"]
+                    
                 }
             },
 
@@ -74,5 +115,6 @@ const ArticleSlice=createSlice({
     }
 )
 
-export const {addcurrentpage,addsearchkeyword} =ArticleSlice.actions
+
+export const {addcurrentpage,addsearchkeyword,addselectedarticles,addallarticlesinpage,adddatalist,addselectedalltoogle} =ArticleSlice.actions
 export default ArticleSlice.reducer;

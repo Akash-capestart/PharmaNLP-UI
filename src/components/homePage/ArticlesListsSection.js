@@ -10,11 +10,15 @@ export function ArticlesListsSection({
   articleSelectHandler,
   singleArticleClickHandler,
   scrollHeight,
+  selectallArticles
 }) {
 
   // let data=FectallArticles
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
   const articledata=useAppSelector((state)=> state.articleSlice.data);
+  const toogleallselect = useAppSelector((state) => state.articleSlice.selectedallslice);
+  const selectedallarticles = useAppSelector((state) => state.articleSlice.selectallarticleinpage);
+
   
   console.log("fajdshfkajh",articledata)
   const articleContentHeightRef = useRef(null);
@@ -22,7 +26,7 @@ export function ArticlesListsSection({
 
   return (
     <>
-      {articledata && articledata["data"].map((newArticle, idx) => {
+      {newArticles && articledata["data"].map((newArticle, idx) => {
         return (
           <div
             key={idx}
@@ -30,8 +34,9 @@ export function ArticlesListsSection({
           >
             <div className="col-md-10 no-padding">
               <div className="d-flex align-items-center">
-                <div className="cursor-pointer">
-                  {selectedArticles.includes(newArticle.refId) ? (
+                <div  className="cursor-pointer">
+                  {/* {selectedArticles.includes(newArticle.refId) || selectallArticles ? ( */}
+                  {selectedallarticles.includes(newArticle.refId)||selectedArticles.includes(newArticle.refId)  ? (
                     <img
                       className="w-20"
                       src="/images/circle-selected-image.png"
@@ -55,7 +60,7 @@ export function ArticlesListsSection({
                   }
                 >
                   {
-                   console.log("Introduction",newArticle.title)
+                  //  console.log("Introduction",newArticle.title)
                   }
                   {newArticle.title}
                 </p>

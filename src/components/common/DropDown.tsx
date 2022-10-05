@@ -24,7 +24,7 @@ export function DropDown({
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
   const [showDropDown, setshowDropDown] = useState(false);
 
-  console.log("activeDropDownVal", activeDropDownVal);
+  // console.log("activeDropDownVal", activeDropDownVal);
   let literaldate;
   const [fromdate, setFromDate] = useState("");
   const [todate, setToDate] = useState("");

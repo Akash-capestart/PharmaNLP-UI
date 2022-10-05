@@ -19,7 +19,7 @@ export function SearchSection() {
   // const [toogleok,setToogleok]=useState(false)
   // const [dropdowndate,setDropdowndate]=useState("")
 
-  console.log("searchword",searchkeyword)
+  // console.log("searchword",searchkeyword)
   const dropDownValues = ["Last 1 Year", "Last 2 Year", "Last 3 Year","Custom"];
   const [searchSectionState, setsearchSectionState] = useState({
     showModal: [],
@@ -57,10 +57,10 @@ export function SearchSection() {
   const enterKeyhandle = (e) => {
     if (e.key === "Enter") {
         if (searchkeyword !== "") {
-          console.log("Entered in the enter if")
+          // console.log("Entered in the enter if")
             SearchHandler();
         } else {
-          console.log("entered in else")
+          // console.log("entered in else")
           fetchfullarticles()
         }
     }

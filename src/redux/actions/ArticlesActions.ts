@@ -7,11 +7,10 @@ export const FectallArticles=createAsyncThunk(
     'ActiclesAction/fetchAllArticles',
     async ({ endUrl }: { endUrl: string,}) => {
         const response = await FetchGet(endUrl)
-        console.log("all data fetch",response);
+        // console.log("all data fetch",response);
         return response
     }
 )
-
 
 export const Fetchbykeywords = createAsyncThunk(
     'ActiclesAction/fetchArticlesByKeyWords',
