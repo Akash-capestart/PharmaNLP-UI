@@ -48,10 +48,21 @@ export function ArticleViewComponent({
   const articleSelectHandler = (val) => {
     if (selectedArticles.includes(val)) {
       const notValArr = selectedArticles.filter((each) => each !== val);
-            dispatch(addselectedarticles({ selectedarticleslist: [notValArr] }));
+      console.log("selected articles ",selectedArticles)
+      console.log("notVal",notValArr)
+            dispatch(addselectedarticles({ selectedarticleslist: notValArr }));
+            // dispatch(addselectedarticles( selectedarticleslist: selectedArticles.concat(notValArr) ));
+
 
     } else {
-      dispatch(addselectedarticles({ selectedarticleslist: [...selectedArticles, val] }));
+      // dispatch(addselectedarticles({ selectedarticleslist: [...selectedArticles, val] }));
+      // dispatch(addselectedarticles( selectedarticleslist: selectedArticles.concat(val)));
+      dispatch(
+        addselectedarticles({
+          selectedarticleslist:
+          selectedArticles.concat(val),
+        })
+      );
     }
   };
 
@@ -68,99 +79,6 @@ export function ArticleViewComponent({
       dispatch(addallarticlesinpage({ allSelectedArticlesinpage: [...allSelectedArticlesinpage, val] }));
     }
   };
-
-  //////////////////////////////////////////////
-
-  // const articleSelectHandler = (val) => {
-  //   if (articleViewContainerState["selectedArticles"].includes(val)) {
-  //     const notValArr = articleViewContainerState["selectedArticles"].filter(
-  //       (each) => each !== val
-  //     );
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       selectedArticles: notValArr,
-  //     });
-  //   } else {
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       selectedArticles: [
-  //         ...articleViewContainerState["selectedArticles"],
-  //         val,
-  //       ],
-  //     });
-  //   }
-  // };
-
-  const allArticlesSelect = (val) => {
-    if (articleViewContainerState["selectallArticles"].includes(val)) {
-      const notValArr = articleViewContainerState["selectallArticles"].filter(
-        (each) => each !== val
-      );
-      setarticleViewContainerState({
-        ...articleViewContainerState,
-        selectallArticles: notValArr,
-      });
-    } else {
-      setarticleViewContainerState({
-        ...articleViewContainerState,
-        selectallArticles: [
-          ...articleViewContainerState["selectallArticles"],
-          val,
-        ],
-      });
-    }
-  };
-
-  // const allarticleSelectHandler=(val)=>{
-  //   console.log("all article select")
-  //   if (articleViewContainerState["selectedArticles"].includes(val)) {
-  //     console.log("inside if")
-  //     // const notValArr = articleViewContainerState["selectedArticles"].filter(
-  //     //   (each) => each !== val
-  //     // );
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       // selectedArticles: notValArr,
-  //       selectallArticles:false
-  //     });
-  //   } else {
-  //     console.log("inside else")
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       // selectallArticles:true
-  //       // selectedArticles: [
-  //       //   ...articleViewContainerState['selectedArticles'],
-  //       //   val,
-  //       // ],
-  //       selectallArticles:!articleViewContainerState["selectallArticles"]
-  //     });
-  //   }
-  // }
-
-  // const allarticlenotSelectHandler=(val)=>{
-  //   console.log("all article non select")
-  //   if (articleViewContainerState["selectedArticles"].includes(val)) {
-  //     // const notValArr = articleViewContainerState["selectedArticles"].filter(
-  //     //   (each) => each !== val
-  //     // );
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       // selectedArticles: notValArr,
-  //       selectallArticles:false
-  //     });
-  //   } else {
-  //     setarticleViewContainerState({
-  //       ...articleViewContainerState,
-  //       // selectallArticles:true
-  //       // selectedArticles: [
-  //       //   ...articleViewContainerState['selectedArticles'],
-  //       //   val,
-  //       // ],
-  //       selectallArticles:!articleViewContainerState["selectallArticles"]
-  //     });
-  //   }
-
-  // }
 
   const articlesExpandHandler = () => {
     setarticleViewContainerState((prevVal) => ({

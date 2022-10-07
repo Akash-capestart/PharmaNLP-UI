@@ -35,7 +35,7 @@ const ArticleSlice=createSlice({
                 }
             },
 
-
+////////////////////////////////////
             addselectedarticles:(state,action:PayloadAction<any>)=>{
                 return {
                     ...state,
@@ -50,10 +50,10 @@ const ArticleSlice=createSlice({
                     ...state,
                     selectallarticleinpage:action['payload']["selectallarticleinpage"]
                     
-                }   
+                }  
             },
 
-
+/////////////////////////////////////////////////
             adddatalist:(state,action:PayloadAction<any>)=>{
                 return {
                     ...state,

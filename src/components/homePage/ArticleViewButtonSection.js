@@ -3,17 +3,10 @@ import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
 import { MoveToFolderModal } from "./MoveToFolderModal";
 import { DropDown } from "../common/DropDown";
 import { Button } from "../common/Button";
-import { addallarticlesinpage } from "../../redux/reducers/ArticleSlice";
 import SelectAllComponents from "../common/SelectAllComponents";
-import { adddatalist } from "../../redux/reducers/ArticleSlice";
-import { addselectedalltoogle } from "../../redux/reducers/ArticleSlice";
-import {
-  FectallArticles,
-  Fetchbykeywords,
-} from "../../redux/actions/ArticlesActions";
+import { addselectedarticles } from "../../redux/reducers/ArticleSlice";
 
 export function ArticleViewButtonSection({
-  newArticle,
   articlesExpandHandler,
   fullTextShow,
   metaDataClickHandler,
@@ -21,112 +14,77 @@ export function ArticleViewButtonSection({
 }) {
   const [refidlistdata, setrefidlistdata] = useState([]);
   const [tooglestate, setTooglestate] = useState(false);
-  const [checkdata, setCheckdata] = useState([]);
-
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
-  const { currentpage, searchkeyword, datalist } = useAppSelector(
-    (state) => state.articleSlice
-  );
-
   const articledata = useAppSelector((state) => state.articleSlice.data);
-  const datalistselectallarticleinpage = useAppSelector(
-    (state) => state.articleSlice.selectallarticleinpage
+  const selectedArticles = useAppSelector(
+    (state) => state.articleSlice.selectedarticleslist
   );
-  const selectedalltoogle = useAppSelector(
-    (state) => state.articleSlice.selectedallslice
-  );
-
-  console.log("data from datalist", datalist);
 
   const dispatch = useAppDispatch();
 
   const refidset = () => {
     if (articledata !== null) {
       let refidlist = [];
-
-      console.log("articledata", articledata);
-
       articledata["data"].forEach((d) => {
         refidlist.push(d["refId"]);
       });
-
-      console.log("refidlist", refidlist);
       setrefidlistdata(refidlist);
     }
   };
 
   useEffect(() => {
     refidset();
-  }, [articledata]);
+  }, [articledata, selectedArticles]);
 
-  const selectallarticleinpage = () => {
-    console.log("in select fun");
-    console.log(
-      "datalistselectallarticleinpage.concat(refidlistdata)",
-      datalistselectallarticleinpage.concat(refidlistdata)
-    );
-    setCheckdata(datalistselectallarticleinpage.concat(refidlistdata));
+  const refIdArrMakeHandler = () => {
+    let removerefid = [];
+    selectedArticles.forEach((refId) => {
+      let checkindex = refidlistdata.indexOf(refId);
+      if (checkindex === -1) {
+        removerefid.push(refId);
+      }
+    });
+    return removerefid;
+  };
+
+  const selectallarticleinpage = (mode) => {
+    const removerefid = refIdArrMakeHandler();
     dispatch(
-      addallarticlesinpage({
-        selectallarticleinpage:
-          datalistselectallarticleinpage.concat(refidlistdata),
+      addselectedarticles({
+        selectedarticleslist: removerefid.concat(refidlistdata),
       })
     );
   };
 
   const setdispatch = () => {
     let count = 0;
-    console.log("in setdispatch fun");
-    console.log(
-      "datalistselectallarticleinpage.length",
-      datalistselectallarticleinpage.length
-    );
-    console.log("checkdata", checkdata);
-    if (datalistselectallarticleinpage.length == 0) {
-      return false;
-    } else {
-      datalistselectallarticleinpage.forEach((d) => {
-        if (refidlistdata.includes(d)) {
-          count = count + 1;
-        }
-      });
-      console.log("count", count);
-
-      if (count == 10) {
-        console.log("yes data is 10");
-        setTooglestate(true);
-        return true;
-      } else {
-        setTooglestate(false);
-        return false;
+    selectedArticles.forEach((refId) => {
+      let checkindex = refidlistdata.indexOf(refId);
+      if (checkindex > -1) {
+        count++;
       }
+    });
+    if (count === refidlistdata.length) {
+      return true;
+    } else {
+      return false;
     }
   };
-  const deselectallarticleinpage = () => {
-    console.log("in deselect");
 
-    let datalistselectallarticleinpagefordeselect =
-      datalistselectallarticleinpage.filter(function (val) {
+  const deselectallarticleinpage = () => {
+    let datalistselectallarticleinpagefordeselect = selectedArticles.filter(
+      function (val) {
         return refidlistdata.indexOf(val) == -1;
-      });
-    console.log(
-      "datalistselectallarticleinpagefordeselect",
-      datalistselectallarticleinpagefordeselect
+      }
     );
+
     setTooglestate(false);
     dispatch(
-      addallarticlesinpage({
-        selectallarticleinpage: datalistselectallarticleinpagefordeselect,
+      addselectedarticles({
+        selectedarticleslist: datalistselectallarticleinpagefordeselect,
       })
     );
   };
-
-  console.log("deselected page", datalistselectallarticleinpage);
-
-  console.log("selectedallslice data from redux", selectedalltoogle);
-
-  console.log("data from redux", datalistselectallarticleinpage);
-  console.log("data from usestate", refidlistdata);
 
   const dropDownValues = ["Published Date", "Recently Added"];
   const [articleViewButtonSectionState, setarticleViewButtonSectionState] =
