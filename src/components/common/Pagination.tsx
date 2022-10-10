@@ -41,12 +41,6 @@ const Pagination = () => {
         dispatch(addcurrentpage({ currentpage: deconepage }));
         changeThePage(deconepage);
     }
-    // else if(currentpage===0)
-    // {
-    //   console.log("zero currentpage", currentpage);
-    //   dispatch(addcurrentpage({ currentpage: currentpage }));
-    //   changeThePage(currentpage);
-    // }
 
   };
 
@@ -69,7 +63,6 @@ const Pagination = () => {
 
   return (
     <div>
-      {/* <button onClick={()=>changeThePage(1)}>1</button> */}
       <button
         style={{ width: "50px", height: "30px", margin: "5px",border:"none" }}
         onClick={decrementpage}

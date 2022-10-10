@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useAppSelector,useAppDispatch } from "../../redux/Hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
 import { Button } from "../common/Button";
 import { AdvanceSearchComponent } from "./AdvanceSearchComponent";
 import { ArticlesCountDisplayer } from "./ArticlesCountDisplayer";
@@ -8,20 +8,19 @@ import { HomeFilteringComponent } from "./HomeFilteringComponent";
 import { FectallArticles } from "../../redux/actions/ArticlesActions";
 // import { Loader } from "../components/common/Loader";
 
-
 export function ArticlesViewContainer() {
+  const [userentry, setuserentry] = useState({
+    author: "",
+    journal: "",
+    publicationYear: "",
+  });
 
-  const [userentry,setuserentry]=useState({
-    author:"",
-    journal:"",
-    publicationYear:""
-  })
-
-
-  console.log("userentry author",userentry.author)
+  console.log("userentry author", userentry.author);
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
-  const { articleViewContainerLoading, articles } = useAppSelector((state) => state.articleSlice); 
-  const dispatchEvent=useAppDispatch()
+  const { articleViewContainerLoading, articles } = useAppSelector(
+    (state) => state.articleSlice
+  );
+  const dispatchEvent = useAppDispatch();
   const [articlesViewContainerState, setarticlesViewContainerState] = useState({
     advanceSearchContentHeight: 0,
     filteringContentHeight: 0,
@@ -89,10 +88,11 @@ export function ArticlesViewContainer() {
     return toCollapse;
   };
 
-
-  useEffect(()=>{
-    dispatchEvent(FectallArticles({ endUrl: "/article/getAllArticles?page=0" }))
-  },[])
+  useEffect(() => {
+    dispatchEvent(
+      FectallArticles({ endUrl: "/article/getAllArticles?page=0" })
+    );
+  }, []);
 
   // console.log("this is the data in viewcon",data)
   return (
@@ -180,30 +180,14 @@ export function ArticlesViewContainer() {
           <ArticlesCountDisplayer />
         </div>
         <div style={{ padding: "0px 15px 15px 15px" }}>
-            <ArticleViewComponent
-              articleViewHeight={innerHeight - 180}
-              toCollapse={collapseHandler()}
-              advanceSearchAndFilterShowHandler={
-                advanceSearchAndFilterShowHandler
-              }
-            />
-          </div>
-        {/* {
-          articles.length>0?
-          
-            :
-
-<div className="d-flex align-items-center justify-content-center w-100 h-100">
-<Loader
-  size={60}
-  activeColor={"#2BB24C"}
-  inActiveColor={"#FFFFFF"}
-  loaderBarWidth={"5px"}
-/>            
-</div> 
-
-        } */}
-      
+          <ArticleViewComponent
+            articleViewHeight={innerHeight - 180}
+            toCollapse={collapseHandler()}
+            advanceSearchAndFilterShowHandler={
+              advanceSearchAndFilterShowHandler
+            }
+          />
+        </div>
       </div>
     </>
   );

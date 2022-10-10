@@ -62,9 +62,7 @@ const UserEntryView = ({ label,userentry,setuserentry }) => {
     {
       console.log("label",label)
       console.log("userval",val)
-      // setuserentry((val)=>...userentry,author:val)
       setuserentry({...userentry,author:val})
-      // setuserentry()
     }
 
    }

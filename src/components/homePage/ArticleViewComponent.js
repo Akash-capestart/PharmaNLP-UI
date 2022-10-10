@@ -14,8 +14,7 @@ export function ArticleViewComponent({
 }) {
   const newArticles = NewArticles;
   const dispatch = useAppDispatch();
-  const { data ,datalist} = useAppSelector((state) => state.articleSlice);
-
+  const { data, datalist } = useAppSelector((state) => state.articleSlice);
 
   const [articleViewContainerState, setarticleViewContainerState] = useState({
     fullTextShow: true,
@@ -30,12 +29,12 @@ export function ArticleViewComponent({
     (state) => state.articleSlice.selectedarticleslist
   );
 
-  const allSelectedArticlesinpage=useAppSelector(
-    (state)=> state.articleSlice.selectallarticleinpage
+  const allSelectedArticlesinpage = useAppSelector(
+    (state) => state.articleSlice.selectallarticleinpage
   );
 
-  console.log("selectedArticles data from redux",selectedArticles)
-  
+  console.log("selectedArticles data from redux", selectedArticles);
+
   const metaDataClickHandler = () => {
     setarticleViewContainerState((prevVal) => ({
       ...prevVal,
@@ -43,40 +42,36 @@ export function ArticleViewComponent({
     }));
   };
 
-  //////////////////////////////////
-
   const articleSelectHandler = (val) => {
     if (selectedArticles.includes(val)) {
       const notValArr = selectedArticles.filter((each) => each !== val);
-      console.log("selected articles ",selectedArticles)
-      console.log("notVal",notValArr)
-            dispatch(addselectedarticles({ selectedarticleslist: notValArr }));
-            // dispatch(addselectedarticles( selectedarticleslist: selectedArticles.concat(notValArr) ));
-
-
+      console.log("selected articles ", selectedArticles);
+      console.log("notVal", notValArr);
+      dispatch(addselectedarticles({ selectedarticleslist: notValArr }));
     } else {
-      // dispatch(addselectedarticles({ selectedarticleslist: [...selectedArticles, val] }));
-      // dispatch(addselectedarticles( selectedarticleslist: selectedArticles.concat(val)));
       dispatch(
         addselectedarticles({
-          selectedarticleslist:
-          selectedArticles.concat(val),
+          selectedarticleslist: selectedArticles.concat(val),
         })
       );
     }
   };
 
-////////////////////////////////
-
   const allarticleinpageSelectHandler = (val) => {
-    console.log("insise allarticleinpageSelectHandler")
+    console.log("insise allarticleinpageSelectHandler");
     if (allSelectedArticlesinpage.includes(val)) {
-      const notValArr = allSelectedArticlesinpage.filter((each) => each !== val);
-            dispatch(addallarticlesinpage({ allSelectedArticlesinpage: [notValArr] }));
-
+      const notValArr = allSelectedArticlesinpage.filter(
+        (each) => each !== val
+      );
+      dispatch(
+        addallarticlesinpage({ allSelectedArticlesinpage: [notValArr] })
+      );
     } else {
-      
-      dispatch(addallarticlesinpage({ allSelectedArticlesinpage: [...allSelectedArticlesinpage, val] }));
+      dispatch(
+        addallarticlesinpage({
+          allSelectedArticlesinpage: [...allSelectedArticlesinpage, val],
+        })
+      );
     }
   };
 
@@ -111,49 +106,47 @@ export function ArticleViewComponent({
   };
 
   return (
-    
     <>
-    { data!=null?
-    <>
-       <ArticleViewButtonSection
-       articlesExpandHandler={articlesExpandHandler}
-       singleArticleView={
-         articleViewContainerState["activeArticleId"] ? true : false
-       }
-       fullTextShow={articleViewContainerState["fullTextShow"]}
-       metaDataClickHandler={metaDataClickHandler}
-       selectedallArticles={articleViewContainerState["selectallArticles"]}
-       allarticleinpageSelectHandler={allarticleinpageSelectHandler}
-       // allarticlenotSelectHandler={allarticlenotSelectHandler}
-       allSelectedArticlesinpage={allSelectedArticlesinpage}
-       selectallArticles={articleViewContainerState["selectallArticles"]}
-     />
-     {!articleViewContainerState["activeArticleId"] ? (
-       <ArticlesListsSection
-         newArticles={newArticles}
-         articlesExpand={articleViewContainerState["articlesExpand"]}
-         selectedArticles={selectedArticles}
-         articleSelectHandler={articleSelectHandler}
-         singleArticleClickHandler={singleArticleClickHandler}
-         selectallArticles={articleViewContainerState["selectallArticles"]}
-       />
-     ) : (
-       <FullTextViewSection
-         articleViewHeight={articleViewHeight}
-         newArticles={newArticles}
-         activeArticleId={articleViewContainerState["activeArticleId"]}
-         activeArticle={articleViewContainerState["activeArticle"][0]}
-         selectedArticles={selectedArticles}
-         fullTextShow={articleViewContainerState["fullTextShow"]}
-         articleSelectHandler={articleSelectHandler}
-         articleFullTextViewHandler={articleFullTextViewHandler}
-         singleArticleClickHandler={singleArticleClickHandler}
-       />
-     )}
-     </>:""
-
-    }
-     
+      {data != null ? (
+        <>
+          <ArticleViewButtonSection
+            articlesExpandHandler={articlesExpandHandler}
+            singleArticleView={
+              articleViewContainerState["activeArticleId"] ? true : false
+            }
+            fullTextShow={articleViewContainerState["fullTextShow"]}
+            metaDataClickHandler={metaDataClickHandler}
+            selectedallArticles={articleViewContainerState["selectallArticles"]}
+            allarticleinpageSelectHandler={allarticleinpageSelectHandler}
+            allSelectedArticlesinpage={allSelectedArticlesinpage}
+            selectallArticles={articleViewContainerState["selectallArticles"]}
+          />
+          {!articleViewContainerState["activeArticleId"] ? (
+            <ArticlesListsSection
+              newArticles={newArticles}
+              articlesExpand={articleViewContainerState["articlesExpand"]}
+              selectedArticles={selectedArticles}
+              articleSelectHandler={articleSelectHandler}
+              singleArticleClickHandler={singleArticleClickHandler}
+              selectallArticles={articleViewContainerState["selectallArticles"]}
+            />
+          ) : (
+            <FullTextViewSection
+              articleViewHeight={articleViewHeight}
+              newArticles={newArticles}
+              activeArticleId={articleViewContainerState["activeArticleId"]}
+              activeArticle={articleViewContainerState["activeArticle"][0]}
+              selectedArticles={selectedArticles}
+              fullTextShow={articleViewContainerState["fullTextShow"]}
+              articleSelectHandler={articleSelectHandler}
+              articleFullTextViewHandler={articleFullTextViewHandler}
+              singleArticleClickHandler={singleArticleClickHandler}
+            />
+          )}
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }

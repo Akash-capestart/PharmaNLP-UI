@@ -12,7 +12,6 @@ export function ArticlesListsSection({
   scrollHeight,
   selectallArticles,
 }) {
-  // let data=FectallArticles
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
   const articledata = useAppSelector((state) => state.articleSlice.data);
   const toogleallselect = useAppSelector(
@@ -25,36 +24,24 @@ export function ArticlesListsSection({
   const [activetag, setActivetag] = useState(null);
   const [taginput, setTaginput] = useState("");
 
-  const [tags, settags] = useState([
-    "Adverse Events",
-    "D1,A1,P1,R1",
-    "Relevant",
-    "Irrelevant",
-    "No Match",
-    "Adverse Events",
-    "D1,A1,P1,R1",
-    "Relevant",
-    "Irrelevant",
-    "No Match",
-  ]);
+  const [tags, settags] = useState(["Adverse Events", "D1,A1,P1,R1"]);
 
   useEffect(() => {
-    const objReModHandler = () => {
-      let initObj = [];
+    const addobject = () => {
+      let addedobj = [];
       newArticles["data"].forEach((element) => {
         let newObj = { ...element };
         newObj["tags"] = tags;
-        initObj.push(newObj);
+        addedobj.push(newObj);
       });
-      setnewObj(initObj);
+      setnewObj(addedobj);
     };
-    objReModHandler();
+    addobject();
   }, [tags, newArticles]);
 
   const [newObj, setnewObj] = useState(null);
   console.log("fajdshfkajh", articledata);
   const articleContentHeightRef = useRef(null);
-  // console.log("data from the listsec",data)
   console.log("newObj", newObj);
   console.log("taginput", taginput);
   const tagtooglefunction = (active) => {
@@ -84,8 +71,6 @@ export function ArticlesListsSection({
 
   return (
     <>
-      {/* {newArticles && articledata["data"].map((newArticle, idx) => { */}
-      {/* {articledata["data"].map((newArticle, idx) => { */}
       {newObj &&
         newObj.map((newArticle, idx) => {
           return (
@@ -96,7 +81,6 @@ export function ArticlesListsSection({
               <div className="col-md-10 no-padding">
                 <div className="d-flex align-items-center">
                   <div className="cursor-pointer">
-                    {/* {selectedArticles.includes(newArticle.refId) || selectallArticles ? ( */}
                     {selectedallarticles.includes(newArticle.refId) ||
                     selectedArticles.includes(newArticle.refId) ? (
                       <img
