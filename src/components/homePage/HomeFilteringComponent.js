@@ -5,6 +5,15 @@ import { Button } from "../common/Button";
 const MultiSelectView = ({ label, itemLists, filterHadler, checkValue }) => {
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
 
+// const [userentry,setuserentry]=useState({
+//   author:"",
+//   journal:"",
+//   publicationYear:""
+// })
+
+// console.log("author val",userentry.author)
+
+
   const filterContentClickHandler = (key, val) => {
     filterHadler(key, val);
   };
@@ -44,9 +53,24 @@ const MultiSelectView = ({ label, itemLists, filterHadler, checkValue }) => {
   );
 };
 
-const UserEntryView = ({ label }) => {
+const UserEntryView = ({ label,userentry,setuserentry }) => {
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
 
+
+   const setuservalues=(val)=>{
+    if(label=="Author")
+    {
+      console.log("label",label)
+      console.log("userval",val)
+      // setuserentry((val)=>...userentry,author:val)
+      setuserentry({...userentry,author:val})
+      // setuserentry()
+    }
+
+   }
+
+
+   
   return (
     <>
       <p
@@ -55,7 +79,7 @@ const UserEntryView = ({ label }) => {
       >
         {label}
       </p>
-      <input placeholder="-" className="filtering-input w-100" />
+      <input placeholder="Author search" className="filtering-input w-100" onChange={(e)=>setuservalues(e.target.value)}/>
     </>
   );
 };
@@ -63,6 +87,7 @@ const UserEntryView = ({ label }) => {
 export function HomeFilteringComponent({
   toCollapse,
   advanceSearchAndFilterShowHandler,
+  label,userentry,setuserentry
 }) {
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
 
@@ -257,7 +282,7 @@ export function HomeFilteringComponent({
           />
         </div>
         <div className="col-md-2 filter-content-box-margin">
-          <UserEntryView label={"Author"} />
+          <UserEntryView label={"Author"}  userentry={userentry} setuserentry={setuserentry}/>
           <UserEntryView label={"Journal"} />
           <UserEntryView label={"Publication Year"} />
         </div>

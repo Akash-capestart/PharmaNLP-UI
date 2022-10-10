@@ -10,6 +10,15 @@ import { FectallArticles } from "../../redux/actions/ArticlesActions";
 
 
 export function ArticlesViewContainer() {
+
+  const [userentry,setuserentry]=useState({
+    author:"",
+    journal:"",
+    publicationYear:""
+  })
+
+
+  console.log("userentry author",userentry.author)
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
   const { articleViewContainerLoading, articles } = useAppSelector((state) => state.articleSlice); 
   const dispatchEvent=useAppDispatch()
@@ -163,6 +172,8 @@ export function ArticlesViewContainer() {
             advanceSearchAndFilterShowHandler={
               advanceSearchAndFilterShowHandler
             }
+            userentry={userentry}
+            setuserentry={setuserentry}
           />
         </div>
         <div className="pad-15">
