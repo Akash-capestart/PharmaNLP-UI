@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FectallArticles } from "../actions/ArticlesActions";
 import { Fetchbykeywords } from "../actions/ArticlesActions";
+import { NewApidata } from "../actions/ArticlesActions";
 
 
 const ArticleSlice=createSlice({
@@ -14,7 +15,8 @@ const ArticleSlice=createSlice({
             searchkeyword:null,
             selectedarticleslist:[],
             selectallarticleinpage:[],
-            selectedallslice:false
+            selectedallslice:false,
+            newapidata:null
         },
 
         
@@ -109,6 +111,30 @@ const ArticleSlice=createSlice({
                 state.data=null
                 
             })
+
+            builder.addCase(NewApidata.rejected,(state, action: PayloadAction<any>)=>{
+                state.newapidata=action["payload"]
+                
+            })
+
+            builder.addCase(NewApidata.pending,(state, action: PayloadAction<any>)=>{
+                // state.isloading=false
+                // state.data=action["payload"]
+                // state.message=''
+                state.newapidata=action["payload"]
+
+                
+            })
+
+            builder.addCase(NewApidata.fulfilled,(state, action: PayloadAction<any>)=>{
+                // state.isloading=false
+                // state.data=action["payload"]
+                // state.message=''
+                state.newapidata=action["payload"]
+
+            })
+
+            
 
         }
 

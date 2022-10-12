@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useAppSelector } from "../../redux/Hooks";
 import { Button } from "../common/Button";
+import UserEntryView from "./UserEntryView";
+import { NewApidata } from "../../redux/actions/ArticlesActions";
+import { useAppDispatch } from "../../redux/Hooks";
 
 const MultiSelectView = ({ label, itemLists, filterHadler, checkValue }) => {
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
-
-// const [userentry,setuserentry]=useState({
-//   author:"",
-//   journal:"",
-//   publicationYear:""
-// })
-
-// console.log("author val",userentry.author)
-
 
   const filterContentClickHandler = (key, val) => {
     filterHadler(key, val);
@@ -53,41 +47,31 @@ const MultiSelectView = ({ label, itemLists, filterHadler, checkValue }) => {
   );
 };
 
-const UserEntryView = ({ label,userentry,setuserentry }) => {
-  const fontResizerState = useAppSelector((state) => state.globalFontResizer);
-
-
-   const setuservalues=(val)=>{
-    if(label=="Author")
-    {
-      console.log("label",label)
-      console.log("userval",val)
-      setuserentry({...userentry,author:val})
-    }
-
-   }
-
-
-   
-  return (
-    <>
-      <p
-        className="no-margin text-green has-font-weight font-change-animation"
-        style={{ fontSize: fontResizerState["lowFont"] }}
-      >
-        {label}
-      </p>
-      <input placeholder="Author search" className="filtering-input w-100" onChange={(e)=>setuservalues(e.target.value)}/>
-    </>
-  );
-};
 
 export function HomeFilteringComponent({
   toCollapse,
   advanceSearchAndFilterShowHandler,
-  label,userentry,setuserentry
+  label,
 }) {
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
+  const {newapidata}=useAppSelector((state)=>state.articleSlice)
+
+
+  const [userentry, setuserentry] = useState({
+    author: null,
+    journal: "",
+    publicationYear: "",
+  });
+
+  console.log("userentry author", userentry.author);
+
+
+  // let dispatch=useAppDispatch()
+  //    useEffect(()=>{
+  //     console.log("use effect is alled")
+  //     dispatch(NewApidata())
+  //    },[])
+
 
   const sourcesLists = [
     "All",
@@ -280,9 +264,10 @@ export function HomeFilteringComponent({
           />
         </div>
         <div className="col-md-2 filter-content-box-margin">
-          <UserEntryView label={"Author"}  userentry={userentry} setuserentry={setuserentry}/>
-          <UserEntryView label={"Journal"} />
-          <UserEntryView label={"Publication Year"} />
+          <UserEntryView label={"Author"}  userentry={userentry} setuserentry={setuserentry}
+          />
+          {/* <UserEntryView label={"Journal"} /> */}
+          {/* <UserEntryView label={"Publication Year"} /> */}
         </div>
       </div>
       <div className="row no-margin">
@@ -321,12 +306,12 @@ export function HomeFilteringComponent({
           />
         </div>
         <div className="col-md-2 border-right-green filter-content-box-margin">
-          <UserEntryView label={"Experimental Intervention"} />
+          {/* <UserEntryView label={"Experimental Intervention"} />
           <UserEntryView label={"Intervention Control"} />
-          <UserEntryView label={"Outcomes"} />
+          <UserEntryView label={"Outcomes"} /> */}
         </div>
         <div className="col-md-2 border-right-green filter-content-box-margin">
-          <UserEntryView label={"Age"} />
+          {/* <UserEntryView label={"Age"} /> */}
           <MultiSelectView
             label={"Gender"}
             itemLists={gender}
@@ -335,14 +320,14 @@ export function HomeFilteringComponent({
           />
         </div>
         <div className="col-md-2 border-right-green filter-content-box-margin">
-          <UserEntryView label={"Diagnosis"} />
+          {/* <UserEntryView label={"Diagnosis"} />
           <UserEntryView label={"Extent of Disease"} />
-          <UserEntryView label={"Organ Involvement"} />
+          <UserEntryView label={"Organ Involvement"} /> */}
         </div>
         <div className="col-md-2 filter-content-box-margin">
-          <UserEntryView label={"Stage"} />
+          {/* <UserEntryView label={"Stage"} />
           <UserEntryView label={"Previous Treatment"} />
-          <UserEntryView label={"Performance Status"} />
+          <UserEntryView label={"Performance Status"} /> */}
         </div>
       </div>
     </>

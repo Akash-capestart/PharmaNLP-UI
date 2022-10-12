@@ -30,6 +30,29 @@ export const FetchGet = async (url:string) => {
     }
 }
 
+
+export const FetchNewapi = async (url:string) => {
+    try{
+        let data;
+        await fetch (`${url}`,{
+            method : "GET",
+            headers : {
+                "Content-Type":"application/json",
+                "auth-token" : getToken() 
+            }
+        })
+        .then(response=>response.json())
+        .then(response=>data = response)
+        return data
+    }catch{
+        const error = "Fetching Error!!!!"
+        return error
+    }
+}
+
+
+
+
 export const FetchPost = async (url:string,payLoad:any) => {              
     try{
         let data;

@@ -9,13 +9,13 @@ import { FectallArticles } from "../../redux/actions/ArticlesActions";
 // import { Loader } from "../components/common/Loader";
 
 export function ArticlesViewContainer() {
-  const [userentry, setuserentry] = useState({
-    author: "",
-    journal: "",
-    publicationYear: "",
-  });
+  // const [userentry, setuserentry] = useState({
+  //   author: "",
+  //   journal: "",
+  //   publicationYear: "",
+  // });
 
-  console.log("userentry author", userentry.author);
+  // console.log("userentry author", userentry.author);
   const fontResizerState = useAppSelector((state) => state.globalFontResizer);
   const { articleViewContainerLoading, articles } = useAppSelector(
     (state) => state.articleSlice
@@ -172,8 +172,8 @@ export function ArticlesViewContainer() {
             advanceSearchAndFilterShowHandler={
               advanceSearchAndFilterShowHandler
             }
-            userentry={userentry}
-            setuserentry={setuserentry}
+            // userentry={userentry}
+            // setuserentry={setuserentry}
           />
         </div>
         <div className="pad-15">
